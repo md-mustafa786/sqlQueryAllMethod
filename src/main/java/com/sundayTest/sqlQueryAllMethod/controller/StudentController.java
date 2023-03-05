@@ -44,6 +44,30 @@ public class StudentController {
         return this.service.findByActive(active);
     }
 
+    @PutMapping("updateFirstName/{Id}/{firstName}")
+    public void updateFirstName(@PathVariable Integer Id, @PathVariable String firstName){
+         service.updateFirstName(Id,firstName);
+    }
+
+    @PutMapping("updateFirstNameAndLastName/{Id}/{firstName}/{lastName}")
+    public ResponseEntity<String> updateFirstNameAndLastName(@PathVariable Integer Id, @PathVariable String firstName, @PathVariable String lastName){
+        service.updateFirstNameAndLastName(Id,firstName,lastName);
+        return new ResponseEntity<>("updated",HttpStatus.OK);
+    }
+
+    @DeleteMapping("/deleteByFirstName")
+    public ResponseEntity<String> deleteByFirstName(@RequestParam String firstName){
+        this.service.deleteByFirstName(firstName);
+        return new ResponseEntity<>("deleted",HttpStatus.OK);
+    }
+
+    @GetMapping("findByDate")
+    public List<Student> findbydate(@RequestParam Timestamp date){
+        return this.service.findByDate(date);
+    }
+
+
+
     private Student setData(String studentData) {
         JSONObject jsonObject = new JSONObject(studentData);
         Student student = new Student();
